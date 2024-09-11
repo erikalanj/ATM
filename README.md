@@ -1,5 +1,5 @@
 # ATM
-ATM project for Java class with an excess of functionality
+ATM project for Java class with an excess of functionality, this code does not currently completely run, but still has many features and methods which I am proud of.
 
 Following are the requirements for the program: 
 
