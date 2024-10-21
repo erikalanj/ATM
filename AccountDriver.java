@@ -138,6 +138,7 @@ public class AccountDriver {
       }
 
     } while (ch != 5);
+    kb.close();
   }
 
   private static boolean checkInput(int day, int month, int year) {
