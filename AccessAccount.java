@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class AccessAccount extends NewAccount {
+  //hi
 
   private String username;
 
@@ -76,8 +77,7 @@ public class AccessAccount extends NewAccount {
 
       if (!headerWritten) {
 
-        writer.write("Username 
-          AccountID Total Transactions DOB Balance\ n ");
+        writer.write("Username AccountID Total Transactions DOB Balance\n ");
 
           headerWritten = true;
 
