@@ -1,0 +1,2 @@
+Username HashedPassword AccountID DateOfBirth
+jensen  fe71bfb7e1a61d41316d0e8ddb90e207839a2c989b731883d4bbb976706820f8  10000001  1/1/2001

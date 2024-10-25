@@ -1,181 +1,106 @@
 import java.io.*;
 import java.util.*;
+
 public class AccessAccount extends NewAccount {
-  //hi
 
-  private String username;
+    private String username;
+    private int accountID;
+    private double totalTransactions;
+    private ArrayList<String> transactions;
+    private String dob;
 
-  private int accountID;
+    private static boolean headerWritten = false;
 
-  private double totalTransactions;
-
-  private ArrayList < String > transactions;
-
-  private String dob;
-
-  private static boolean headerWritten = false;
-
-  public AccessAccount(String username, int accountID, String dob) {
-
-    super(); // Call the constructor of the superclass (NewAccount)
-
-    this.username = username;
-
-    this.accountID = accountID;
-
-    this.totalTransactions = 0.0;
-
-    this.transactions = new ArrayList < > ();
-
-    this.dob = dob;
-
-  }
-
-  // Getter method for accountID
-
-  public int getAccountID() {
-
-    return accountID;
-
-  }
-
-  public void deposit(String dob, double amount) {
-
-    transactions.add(username + " " + accountID + " " + "deposit " +
-
-      this.dob + " " + amount + " " + (totalTransactions + amount));
-
-    totalTransactions += amount;
-
-    updateBalanceSheet();
-
-  }
-
-  public void withdraw(String dob, double amount) {
-
-    if (totalTransactions >= amount) {
-
-      transactions.add(username + " " + accountID + " " + totalTransactions + " withdraw " +
-
-        this.dob + " " + amount);
-
-      totalTransactions -= amount;
-
-      updateBalanceSheet();
-
-    } else {
-
-      System.out.println("Insufficient funds!");
-
+    public AccessAccount(String username, int accountID, String dob) {
+        super(); // Call the constructor of the superclass (NewAccount)
+        this.username = username;
+        this.accountID = accountID;
+        this.totalTransactions = 0.0;
+        this.transactions = new ArrayList<>();
+        this.dob = dob;
     }
 
-  }
-
-  private void updateBalanceSheet() {
-
-    try (FileWriter writer = new FileWriter("balanceSheet.txt", true)) {
-
-      if (!headerWritten) {
-
-        writer.write("Username AccountID Total Transactions DOB Balance\n ");
-
-          headerWritten = true;
-
-        }
-
-        for (String transaction: transactions) {
-
-          writer.write(transaction + " " + accountID + " " + dob + "\n");
-
-        }
-
-      } catch (IOException e) {
-
-        e.printStackTrace();
-
-      }
-
+    // Getter method for accountID
+    public int getAccountID() {
+        return accountID;
     }
 
-    public static List < Transaction > parseTransactions() {
+    public void deposit(double amount) {
+        totalTransactions += amount;
+        transactions.add(String.format("%-10s %-10d %-10s %-10s %-10.2f", username, accountID, dob, "deposit", totalTransactions));
+        updateBalanceSheet();
+    }
 
-      List < Transaction > transactions = new ArrayList < > ();
+    public void withdraw(double amount) {
+        if (totalTransactions >= amount) {
+            totalTransactions -= amount;
+            transactions.add(String.format("%-10s %-10d %-10s %-10s %-10.2f", username, accountID, dob, "withdraw", totalTransactions));
+            updateBalanceSheet();
+        } else {
+            System.out.println("Insufficient funds!");
+        }
+    }
 
-      try (Scanner scanner = new Scanner(new File("balanceSheet.txt"))) {
-
-        while (scanner.hasNextLine()) {
-
-          String line = scanner.nextLine();
-
-          String[] parts = line.split(" ");
-
-          if (parts.length >= 7) {
-
-            String name = parts[0];
-
-            String type = parts[5];
-
-            try {
-
-              double amount = Double.parseDouble(parts[6]);
-
-              transactions.add(new Transaction(name, type, amount));
-
-            } catch (NumberFormatException e) {
-
-              e.printStackTrace();
-
+    private void updateBalanceSheet() {
+        try (FileWriter writer = new FileWriter("balanceSheet.txt", true)) {
+            if (!headerWritten) {
+                writer.write( "\n\n" + String.format("%-10s %-10s %-10s %-10s %-10s\n", "Username", "AccountID", "DOB", "Transaction", "Balance"));
+                headerWritten = true;
             }
 
-          }
+            for (String transaction : transactions) {
+                writer.write(transaction + "\n");
+            }
 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-      } catch (FileNotFoundException e) {
-
-        e.printStackTrace();
-
-      }
-
-      return transactions;
-
+    public static List<Transaction> parseTransactions() {
+        List<Transaction> transactions = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new File("balanceSheet.txt"))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" ");
+                if (parts.length >= 5) {
+                    String name = parts[0];
+                    String type = parts[3];
+                    try {
+                        double amount = Double.parseDouble(parts[4]);
+                        transactions.add(new Transaction(name, type, amount));
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return transactions;
     }
 
     public static class Transaction {
+        private String name;
+        private String type;
+        private double amount;
 
-      private String name;
+        public Transaction(String name, String type, double amount) {
+            this.name = name;
+            this.type = type;
+            this.amount = amount;
+        }
 
-      private String type;
+        public String getName() {
+            return name;
+        }
 
-      private double amount;
+        public String getType() {
+            return type;
+        }
 
-      public Transaction(String name, String type, double amount) {
-
-        this.name = name;
-
-        this.type = type;
-
-        this.amount = amount;
-
-      }
-
-      public String getName() {
-
-        return name;
-
-      }
-
-      public String getType() {
-
-        return type;
-
-      }
-
-      public double getAmount() {
-
-        return amount;
-
-      }
-
+        public double getAmount() {
+            return amount;
+        }
     }
-  }
+}

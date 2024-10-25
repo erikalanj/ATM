@@ -1,169 +1,169 @@
 import java.util.Scanner;
-import java.io.*;
-import java.util.*;
+
 public class AccountDriver {
-  public static void main(String[] args) {
 
-    String name, dob, pass;
+    public static void main(String[] args) {
 
-    int ch, day, month, year;
+        String name, dob, pass;
 
-    double amount;
+        int ch, day, month, year;
 
-    Scanner kb = new Scanner(System.in);
+        double amount;
 
-    Account acct;
+        Scanner kb = new Scanner(System.in);
 
-    do {
-
-      acct = null;
-
-      System.out.println("Enter your choice (1-5):");
-
-      System.out.print("\n 1. Create new account without deposit");
-
-      System.out.print("\n 2. Create new account with deposit an amount");
-
-      System.out.print("\n 3. Deposit an amount to an existing account");
-
-      System.out.print("\n 4. Withdraw an amount from an account");
-
-      System.out.print("\n 5. Exit");
-
-      System.out.print("\n\n Enter your choice: ");
-
-      ch = kb.nextInt();
-
-      kb.nextLine();
-
-      switch (ch) {
-
-      case 1:
-        System.out.println("Enter name: ");
-
-        name = kb.nextLine();
+        Account acct;
 
         do {
 
-          System.out.println("Enter date of birth as day month year(e.g. 23 12 2001):");
-          System.out.print("Day: ");
+            acct = null;
 
-          day = kb.nextInt();
+            System.out.println("Enter your choice (1-5):");
 
-          System.out.print("Month: ");
+            System.out.print("\n 1. Create new account without deposit");
 
-          month = kb.nextInt();
+            System.out.print("\n 2. Create new account with deposit an amount");
 
-          System.out.print("Year: ");
+            System.out.print("\n 3. Deposit an amount to an existing account");
 
-          year = kb.nextInt();
+            System.out.print("\n 4. Withdraw an amount from an account");
 
-        } while (checkInput(day, month, year));
+            System.out.print("\n 5. Exit");
 
-        dob = (day + "/" + month + "/" + year);
+            System.out.print("\n\n Enter your choice: ");
 
-        acct = new Account(name, dob);
+            ch = kb.nextInt();
 
-        break;
+            kb.nextLine();
 
-      case 2:
-        System.out.println("Enter name: ");
+            switch (ch) {
 
-        name = kb.nextLine();
+                case 1:
+                    System.out.println("Enter name: ");
 
-        do {
+                    name = kb.nextLine();
 
-          System.out.println("Enter date of birth as day month year(e.g. 23 12 2001):");
-          System.out.print("Day: ");
+                    do {
 
-          day = kb.nextInt();
+                        System.out.println("Enter date of birth as day month year(e.g. 23 12 2001):");
+                        System.out.print("Day: ");
 
-          System.out.print("Month: ");
+                        day = kb.nextInt();
 
-          month = kb.nextInt();
+                        System.out.print("Month: ");
 
-          System.out.print("Year: ");
+                        month = kb.nextInt();
 
-          year = kb.nextInt();
+                        System.out.print("Year: ");
 
-        } while (checkInput(day, month, year));
+                        year = kb.nextInt();
 
-        dob = (day + "/" + month + "/" + year);
+                    } while (checkInput(day, month, year));
 
-        System.out.println("Enter initial deposit amount: ");
+                    dob = (day + "/" + month + "/" + year);
 
-        amount = kb.nextDouble();
+                    acct = new Account(name, dob);
 
-        acct = new Account(name, dob, amount);
+                    break;
 
-        break;
+                case 2:
+                    System.out.println("Enter name: ");
 
-      case 3:
-        System.out.print("Enter name: ");
+                    name = kb.nextLine();
 
-        name = kb.nextLine();
+                    do {
 
-        System.out.print("Enter password: ");
+                        System.out.println("Enter date of birth as day month year(e.g. 23 12 2001):");
+                        System.out.print("Day: ");
 
-        pass = kb.nextLine();
+                        day = kb.nextInt();
 
-        System.out.print("Enter amount to be deposited: ");
+                        System.out.print("Month: ");
 
-        amount = kb.nextDouble();
+                        month = kb.nextInt();
 
-        acct = new Account(name, pass, "deposit", amount);
+                        System.out.print("Year: ");
 
-        break;
+                        year = kb.nextInt();
 
-      case 4:
-        System.out.print("Enter name: ");
+                    } while (checkInput(day, month, year));
 
-        name = kb.nextLine();
+                    dob = (day + "/" + month + "/" + year);
 
-        System.out.print("Enter password: ");
+                    System.out.println("Enter initial deposit amount: ");
 
-        pass = kb.nextLine();
+                    amount = kb.nextDouble();
 
-        System.out.print("Enter amount you want to withdraw: ");
+                    acct = new Account(name, dob, amount);
 
-        amount = kb.nextDouble();
+                    break;
 
-        acct = new Account(name, pass, "withdraw", amount);
+                case 3:
+                    System.out.print("Enter name: ");
 
-        break;
+                    name = kb.nextLine();
 
-      case 5:
-        System.out.println("Exit.");
+                    System.out.print("Enter password: ");
 
-      }
+                    pass = kb.nextLine();
 
-    } while (ch != 5);
-    kb.close();
-  }
+                    System.out.print("Enter amount to be deposited: ");
 
-  private static boolean checkInput(int day, int month, int year) {
+                    amount = kb.nextDouble();
 
-    boolean checkInput;
+                    acct = new Account(name, pass, "deposit", amount);
 
-    checkInput = false;
+                    break;
 
-    if (day < 0 || day > 31) {
+                case 4:
+                    System.out.print("Enter name: ");
 
-      System.out.println("Invalid day");
+                    name = kb.nextLine();
 
-      checkInput = true;
+                    System.out.print("Enter password: ");
 
+                    pass = kb.nextLine();
+
+                    System.out.print("Enter amount you want to withdraw: ");
+
+                    amount = kb.nextDouble();
+
+                    acct = new Account(name, pass, "withdraw", amount);
+
+                    break;
+
+                case 5:
+                    System.out.println("Exit.");
+
+            }
+
+        } while (ch != 5);
+        kb.close();
     }
 
-    if (month < 0 || month > 12) {
+    private static boolean checkInput(int day, int month, int year) {
 
-      System.out.println("Invalid Month");
+        boolean checkInput;
 
-      checkInput = true;
+        checkInput = false;
 
+        if (day < 0 || day > 31) {
+
+            System.out.println("Invalid day");
+
+            checkInput = true;
+
+        }
+
+        if (month < 0 || month > 12) {
+
+            System.out.println("Invalid Month");
+
+            checkInput = true;
+
+        }
+
+        return checkInput;
     }
-
-    return checkInput;
-  }
 
 }

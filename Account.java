@@ -2,55 +2,55 @@ public class Account extends AccessAccount {
 
   private String name;
 
-  private static String dob;
+  private static String dob; // Consider making this final after initialization
 
   private int accountID;
 
   public Account(String name, String dob) {
 
-    super(name, getLastAccountNumber(), dob);
+      super(name, getLastAccountNumber(), dob);
 
-    this.name = name;
+      this.name = name;
 
-    this.dob = dob;
+      this.dob = dob;
 
-    if (checkAccount(name)) {
+      if (checkAccount(name)) {
 
-      System.out.println("Account already exists for this user.");
+          System.out.println("Account already exists for this user.");
 
-    } else {
+      } else {
 
-      createAccount(name, dob);
+          createAccount(name, dob);
 
-      this.accountID = getAccountID(); // Use the getter method to get accountID
+          this.accountID = getAccountID(); // Use the getter method to get accountID
 
-      System.out.println("Account created successfully.");
+          System.out.println("Account created successfully.");
 
-    }
+      }
 
   }
 
   public Account(String name, String dob, double initialDeposit) {
 
-    this(name, dob);
+      this(name, dob);
 
-    deposit(dob, initialDeposit);
+      deposit(initialDeposit);
 
   }
 
   public Account(String name, String password, String operation, double amount) {
 
-    super(name, getLastAccountNumber(), dob); // Use this.dob to refer to the instance variable
+      super(name, getLastAccountNumber(), dob); // Use this.dob to refer to the instance variable
 
-    if (operation.equals("deposit")) {
+      if (operation.equals("deposit")) {
 
-      deposit(this.dob, amount);
+          deposit(amount);
 
-    } else if (operation.equals("withdraw")) {
+      } else if (operation.equals("withdraw")) {
 
-      withdraw(this.dob, amount);
+          withdraw(amount);
 
-    }
+      }
 
   }
 }
