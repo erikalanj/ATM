@@ -1,56 +1,36 @@
 public class Account extends AccessAccount {
 
-  private String name;
+    private String name;
+    private static String dob;
+    private int accountID;
 
-  private static String dob; // Consider making this final after initialization
+    public Account(String name, String dob) {
+        super(name, NewAccount.generateAccountID(name), dob);
+        this.name = name;
+        this.dob = dob;
 
-  private int accountID;
+        if (checkAccount(name)) {
+            System.out.println("Account already exists for this user.");
+        } else {
+            this.accountID = getAccountID();
+            createAccount(name, dob);
+            System.out.println("Account created successfully.");
+        }
+    }
 
-  public Account(String name, String dob) {
+    public Account(String name, String dob, double initialDeposit) {
+        this(name, dob);
+        deposit(initialDeposit);
+    }
 
-      super(name, getLastAccountNumber(), dob);
+    public Account(String name, String password, String operation, double amount) {
+        super(name, NewAccount.generateAccountID(name), dob);
+        this.accountID = getAccountID();
 
-      this.name = name;
-
-      this.dob = dob;
-
-      if (checkAccount(name)) {
-
-          System.out.println("Account already exists for this user.");
-
-      } else {
-
-          createAccount(name, dob);
-
-          this.accountID = getAccountID(); // Use the getter method to get accountID
-
-          System.out.println("Account created successfully.");
-
-      }
-
-  }
-
-  public Account(String name, String dob, double initialDeposit) {
-
-      this(name, dob);
-
-      deposit(initialDeposit);
-
-  }
-
-  public Account(String name, String password, String operation, double amount) {
-
-      super(name, getLastAccountNumber(), dob); // Use this.dob to refer to the instance variable
-
-      if (operation.equals("deposit")) {
-
-          deposit(amount);
-
-      } else if (operation.equals("withdraw")) {
-
-          withdraw(amount);
-
-      }
-
-  }
+        if (operation.equals("deposit")) {
+            deposit(amount);
+        } else if (operation.equals("withdraw")) {
+            withdraw(amount);
+        }
+    }
 }

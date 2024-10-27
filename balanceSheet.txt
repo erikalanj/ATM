@@ -1,5 +1,6 @@
 
 
-Username   AccountID  DOB        Transaction Balance   
-jensen     10000000   1/1/2001   deposit    230.00    
-jensen     10000003   1/1/2001   deposit    150.00    
+Name       AccountID  Birthday   Transaction Type Amount          Total Balance  
+erik       10000000   1/1/2001   Deposit         120.00          120.00         
+erik       10000000   1/1/2001   Deposit         120.00          240.00         
+erik       10000000   1/1/2001   Withdraw        20.00           220.00         
