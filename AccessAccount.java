@@ -15,7 +15,7 @@ public class AccessAccount extends NewAccount {
         this.username = username;
         this.accountID = accountID;
         this.dob = dob;
-        this.totalTransactions = retrieveLastBalance();  
+        this.totalTransactions = retrieveLastBalance();
         this.transactions = new ArrayList<>();
     }
 
@@ -41,14 +41,16 @@ public class AccessAccount extends NewAccount {
 
     public void deposit(double amount) {
         totalTransactions += amount;
-        transactions.add(String.format("%-10s %-10d %-10s %-15s %-15.2f %-15.2f", username, accountID, dob, "Deposit", amount, totalTransactions));
+        transactions.add(String.format("%-10s %-10d %-10s %-15s %-15.2f %-15.2f", username, accountID, dob, "Deposit",
+                amount, totalTransactions));
         updateBalanceSheet();
     }
 
     public void withdraw(double amount) {
         if (totalTransactions >= amount) {
             totalTransactions -= amount;
-            transactions.add(String.format("%-10s %-10d %-10s %-15s %-15.2f %-15.2f", username, accountID, dob, "Withdraw", amount, totalTransactions));
+            transactions.add(String.format("%-10s %-10d %-10s %-15s %-15.2f %-15.2f", username, accountID, dob,
+                    "Withdraw", amount, totalTransactions));
             updateBalanceSheet();
         } else {
             System.out.println("Insufficient funds!");
@@ -58,7 +60,8 @@ public class AccessAccount extends NewAccount {
     private void updateBalanceSheet() {
         try (FileWriter writer = new FileWriter("balanceSheet.txt", true)) {
             if (!headerWritten) {
-                writer.write("\n\n" + String.format("%-10s %-10s %-10s %-15s %-15s %-15s\n", "Name", "AccountID", "Birthday", "Transaction Type", "Amount", "Total Balance"));
+                writer.write("\n\n" + String.format("%-10s %-10s %-10s %-15s %-15s %-15s\n", "Name", "AccountID",
+                        "Birthday", "Transaction Type", "Amount", "Total Balance"));
                 headerWritten = true;
             }
             for (String transaction : transactions) {

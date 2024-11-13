@@ -47,40 +47,39 @@ public class NewAccount {
 
     public static void createAccount(String name, String dob) {
         int accountNumber = generateAccountID(name);
-        String password = generatePassword();       // Generate the plaintext password
+        String password = generatePassword(); // Generate the plaintext password
         String hashedPassword = hashPassword(password); // Hash the password
-    
+
         try (FileWriter writer = new FileWriter("accountInfo.txt", true)) {
             if (!headerWritten) {
                 writer.write("Name HashedPassword AccountID Birthday\n");
                 headerWritten = true;
             }
             writer.write(name + "  " + hashedPassword + "  " + accountNumber + "  " + dob + "\n");
-    
+
             System.out.println("Your password is: " + password);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
 
     public static String getHashedPassword(String name) {
         try (Scanner scanner = new Scanner(new File("accountInfo.txt"))) {
             while (scanner.hasNextLine()) {
                 String[] parts = scanner.nextLine().split("\\s+");
                 if (parts[0].equals(name)) {
-                    return parts[1];  // Return hashed password
+                    return parts[1]; // Return hashed password
                 }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return null;  // Return null if account not found
+        return null; // Return null if account not found
     }
 
     public boolean checkAccount(String name) {
         try (FileInputStream fis = new FileInputStream("accountInfo.txt");
-             Scanner scan = new Scanner(fis)) {
+                Scanner scan = new Scanner(fis)) {
 
             while (scan.hasNextLine()) {
                 if (scan.nextLine().contains(name)) {
