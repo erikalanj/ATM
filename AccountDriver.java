@@ -39,7 +39,7 @@ public class AccountDriver {
                         year = kb.nextInt();
                     } while (checkInput(day, month, year));
                     dob = (day + "/" + month + "/" + year);
-                    NewAccount.createAccount(name, dob);
+                    acct = new Account(name, dob);
                     break;
 
                 case 2:
@@ -61,9 +61,7 @@ public class AccountDriver {
                     dob = (day + "/" + month + "/" + year);
                     System.out.println("Enter initial deposit amount: ");
                     amount = kb.nextDouble();
-                    // Logic to handle deposit can be added if required
-                    NewAccount.createAccount(name, dob);
-                    System.out.println("Account created successfully. Deposit " + amount + " manually.");
+                    acct = new Account(name, dob, amount);
                     break;
 
                 case 3:
@@ -82,7 +80,7 @@ public class AccountDriver {
                     }
                     System.out.print("Enter amount to be deposited: ");
                     amount = kb.nextDouble();
-                    System.out.println("Deposited " + amount + " to account: " + name);
+                    acct = new Account(name, pass, "deposit", amount);
                     break;
 
                 case 4:
@@ -101,7 +99,7 @@ public class AccountDriver {
                     }
                     System.out.print("Enter amount you want to withdraw: ");
                     amount = kb.nextDouble();
-                    System.out.println("Withdrew " + amount + " from account: " + name);
+                    acct = new Account(name, pass, "withdraw", amount);
                     break;
 
                 case 5:
