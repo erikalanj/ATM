@@ -1,7 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class NewAccount {
 
@@ -30,32 +28,16 @@ public class NewAccount {
         return password.toString();
     }
 
-    public static String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = digest.digest(password.getBytes());
-            StringBuilder hashedPassword = new StringBuilder();
-            for (byte b : hashedBytes) {
-                hashedPassword.append(String.format("%02x", b));
-            }
-            return hashedPassword.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public static void createAccount(String name, String dob) {
         int accountNumber = generateAccountID(name);
         String password = generatePassword(); // Generate the plaintext password
-        String hashedPassword = hashPassword(password); // Hash the password
 
         try (FileWriter writer = new FileWriter("accountInfo.txt", true)) {
             if (!headerWritten) {
-                writer.write("Name HashedPassword AccountID Birthday\n");
+                writer.write("Name Password AccountID Birthday\n");
                 headerWritten = true;
             }
-            writer.write(name + "  " + hashedPassword + "  " + accountNumber + "  " + dob + "\n");
+            writer.write(name + "  " + password + "  " + accountNumber + "  " + dob + "\n");
 
             System.out.println("Your password is: " + password);
         } catch (IOException e) {
@@ -63,12 +45,12 @@ public class NewAccount {
         }
     }
 
-    public static String getHashedPassword(String name) {
+    public static String getPassword(String name) {
         try (Scanner scanner = new Scanner(new File("accountInfo.txt"))) {
             while (scanner.hasNextLine()) {
                 String[] parts = scanner.nextLine().split("\\s+");
                 if (parts[0].equals(name)) {
-                    return parts[1]; // Return hashed password
+                    return parts[1]; // Return plaintext password
                 }
             }
         } catch (FileNotFoundException e) {

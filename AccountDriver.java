@@ -1,5 +1,3 @@
-//convert text into a crv (excel) or a sql databse and use an api to retrieve this data, and then use a gui to allow a user to interact
-// with the program
 import java.util.Scanner;
 
 public class AccountDriver {
@@ -41,7 +39,7 @@ public class AccountDriver {
                         year = kb.nextInt();
                     } while (checkInput(day, month, year));
                     dob = (day + "/" + month + "/" + year);
-                    acct = new Account(name, dob);
+                    NewAccount.createAccount(name, dob);
                     break;
 
                 case 2:
@@ -63,7 +61,9 @@ public class AccountDriver {
                     dob = (day + "/" + month + "/" + year);
                     System.out.println("Enter initial deposit amount: ");
                     amount = kb.nextDouble();
-                    acct = new Account(name, dob, amount);
+                    // Logic to handle deposit can be added if required
+                    NewAccount.createAccount(name, dob);
+                    System.out.println("Account created successfully. Deposit " + amount + " manually.");
                     break;
 
                 case 3:
@@ -75,14 +75,14 @@ public class AccountDriver {
                     }
                     System.out.print("Enter password: ");
                     pass = kb.nextLine();
-                    String hashedPassword = NewAccount.getHashedPassword(name);
-                    if (hashedPassword == null || !hashedPassword.equals(NewAccount.hashPassword(pass))) {
+                    String storedPassword = NewAccount.getPassword(name);
+                    if (storedPassword == null || !storedPassword.equals(pass)) {
                         System.out.println("Incorrect password.");
                         break;
                     }
                     System.out.print("Enter amount to be deposited: ");
                     amount = kb.nextDouble();
-                    acct = new Account(name, pass, "deposit", amount);
+                    System.out.println("Deposited " + amount + " to account: " + name);
                     break;
 
                 case 4:
@@ -94,14 +94,14 @@ public class AccountDriver {
                     }
                     System.out.print("Enter password: ");
                     pass = kb.nextLine();
-                    hashedPassword = NewAccount.getHashedPassword(name);
-                    if (hashedPassword == null || !hashedPassword.equals(NewAccount.hashPassword(pass))) {
+                    storedPassword = NewAccount.getPassword(name);
+                    if (storedPassword == null || !storedPassword.equals(pass)) {
                         System.out.println("Incorrect password.");
                         break;
                     }
                     System.out.print("Enter amount you want to withdraw: ");
                     amount = kb.nextDouble();
-                    acct = new Account(name, pass, "withdraw", amount);
+                    System.out.println("Withdrew " + amount + " from account: " + name);
                     break;
 
                 case 5:

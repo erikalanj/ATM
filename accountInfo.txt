@@ -1,5 +1,0 @@
-Name HashedPassword AccountID Birthday
-erik  6aa3bce48b2772340c8f703ecd4c0dde69f2f2f2df3cf9322a16d09128482883  10000000  1/1/2001
-lexi  07a8fe506e74b1aed495e8152d4ecf20611c6725c6a3a44530b2eb5dbd1fcc6d  10000001  1/1/2001
-Name HashedPassword AccountID Birthday
-matt  f8e2bae5a7fd2bd0ffb20171338b9ec4206be1c7bb19bbd33c37668590cd6866  10000000  1/1/2001
