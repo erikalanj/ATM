@@ -1,1 +1,0 @@
-not incrementing the id correctly, and keeps recieiving decoder errors every single time there is an input.
